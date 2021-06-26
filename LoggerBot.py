@@ -27,8 +27,11 @@ async def on_message(message):
 
 @bot.event
 async def on_message_delete(message):
-    await message.channel.send(f"Message supprimé: {message.content} \n Auteur id: {str(message.author.id)} \n "
-                               f"Auteur: <@{str(message.author.id)}>")
+    embed = discord.Embed(title="Message supprimé", description=message.content)
+    embed.set_author(name=message.author.display_name + " " + str(message.author.id), icon_url=message.author.avatar_url)
+    #await message.channel.send(f"Message supprimé: {message.content} \n Auteur id: {str(message.author.id)} \n "
+    #                           f"Auteur: <@{str(message.author.id)}>")
+    await message.channel.send(embed=embed)
 
 
 @bot.event
@@ -43,5 +46,6 @@ async def on_reaction_add(reaction, user):
     await reaction.channel.send(
         f"Réaction ajouté: {reaction} \n Auteur id: {str(reaction.author.id)} \n "
         f"Auteur: <@{str(reaction.author.id)}>")
+
 
 bot.run(token)
